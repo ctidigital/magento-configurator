@@ -1,0 +1,5 @@
+## CTI Digital Magento Configurator
+
+src/app/code/community/Cti/Configurator app/code/community/Cti/Configurator
+src/app/etc/modules/Cti_Configurator.xml app/etc/modules/Cti_Configurator.xml
+src/shell/configurator.php shell/configurator.php

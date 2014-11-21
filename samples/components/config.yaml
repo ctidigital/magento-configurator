@@ -1,0 +1,64 @@
+- global:
+    core_config:
+      -
+        path: design/package/name
+        value: cti
+      -
+        path: design/theme/default
+        value: theme
+- grouped:
+  - paypal:
+      core_config:
+        -
+          path: payment/pbridge/profilestatus
+          value: 0
+        -
+          path: payment/paypal_express/active
+          value: 0
+        -
+          path: payment/paypal_express_bml/active
+          value: 0
+        -
+          path: paypal/wpp/sandbox_flag
+          value: 1
+        -
+          path: paypal/general/business_account
+          value: test@test
+        -
+          path: payment/paypal_standard/active
+          value: 0
+        -
+          path: paypal/wpp/api_username
+          value: test_api1.test.com
+          encrypted: 1
+        -
+          path: paypal/wpp/api_password
+          value: 111111111
+          encrypted: 1
+        -
+          path: paypal/wpp/api_signature
+          value: fjweofij3q0rjFASPOFDSOPFJDSPF0_dfFoijfFSFSD
+          encrypted: 1
+        -
+          path: payment/paypal_express/payment_action
+          value: Authorization
+        -
+          path: payment/paypal_express/visible_on_cart
+          value: 0
+        -
+          path: payment/paypal_express/visible_on_product
+          value: 0
+- websites:
+  - base:
+      inherit:
+        - paypal
+      core_config:
+        -
+          path: general/locale/timezone
+          value: Europe/London
+- stores:
+  - default:
+      core_config:
+        -
+          path: general/locale/code
+          value: en_GB

@@ -1,0 +1,29 @@
+- websites:
+  - base:
+      name: Default Website
+      - store_groups:
+          -
+            name: Main Website Store
+            root_category: Default Category
+            stores:
+              - default:
+                  name: Default Store View
+
+  - test:
+      name: Test Website
+      - store_groups:
+          -
+            name: Test Website Store
+            root_category: Default Category
+            stores:
+              - test:
+                  name: Test Store View
+  - test1:
+      name: Second Test Website
+      - store_groups:
+          -
+            name: Test 1 Website Store
+            root_category: Default Category
+            stores:
+              - test1:
+                  name: Test 2 Store View

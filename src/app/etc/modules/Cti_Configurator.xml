@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cti_Configurator>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends></depends>
+        </Cti_Configurator>
+    </modules>
+</config>

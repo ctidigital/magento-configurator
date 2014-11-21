@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cti_Configurator>
+            <version>0.2.0</version>
+        </Cti_Configurator>
+    </modules>
+    <global>
+        <helpers>
+            <cti_configurator>
+                <class>Cti_Configurator_Helper</class>
+            </cti_configurator>
+        </helpers>
+        <configurator_processors>
+            <components>
+                <website>cti_configurator/components_website</website>
+                <config>cti_configurator/components_config</config>
+            </components>
+        </configurator_processors>
+    </global>
+</config>
