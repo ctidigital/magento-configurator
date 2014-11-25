@@ -104,10 +104,12 @@ class Cti_Configurator_Helper_Components_Website extends Cti_Configurator_Helper
         // See if the website exists otherwise create the website
         $website = Mage::getModel('core/website')->load($code,'code');
         if ($website->getId()) {
-            $website->setName($config['name'])
-                ->setSortOrder($sortOrder)
-                ->save();
-            $this->log("Updated website ".$website->getCode());
+            if ($website->getName() != $config['name'] || $website->getSortOrder() != $sortOrder) {
+                $website->setName($config['name'])
+                    ->setSortOrder($sortOrder)
+                    ->save();
+                $this->log("Updated website ".$website->getCode());
+            }
         } else {
             $website = Mage::getModel('core/website');
             $website->setCode($code)
@@ -130,10 +132,15 @@ class Cti_Configurator_Helper_Components_Website extends Cti_Configurator_Helper
         // See if the store group exists otherwise create a store group
         $storeGroup = Mage::getModel('core/store_group')->load($sgConfig['name'],'name');
         if ($storeGroup->getId()) {
-            $storeGroup->setWebsiteId($website->getId())
-                ->setRootCategoryId($sgConfig['root_category_id'])
-                ->save();
-            $this->log("Updated store group ".$storeGroup->getName());
+
+            if ($storeGroup->getWebsiteId() != $website->getId()
+                || $storeGroup->getRootCategoryId() != $sgConfig['root_category_id']) {
+
+                $storeGroup->setWebsiteId($website->getId())
+                    ->setRootCategoryId($sgConfig['root_category_id'])
+                    ->save();
+                $this->log("Updated store group " . $storeGroup->getName());
+            }
         } else {
             $storeGroup = Mage::getModel('core/store_group');
             $storeGroup->setWebsiteId($website->getId())
@@ -156,14 +163,22 @@ class Cti_Configurator_Helper_Components_Website extends Cti_Configurator_Helper
         // See if the store exists otherwise create a store
         $store = Mage::getModel('core/store')->load($sConfig['code'],'code');
         if ($store->getId()) {
-            $store->setWebsiteId($storeGroup->getWebsiteId())
-                ->setGroupId($storeGroup->getId())
-                ->setName($sConfig['name'])
-                ->setIsActive(isset($sConfig['active'])? $sConfig['active']:1)
-                ->setSortOrder($sConfig['sort_order'])
-                ->save();
 
-            $this->log("Updated store ".$store->getCode());
+            if ($store->getWebsiteId() != $storeGroup->getWebsiteId()
+            || $store->getGroupId() != $storeGroup->getId()
+            || $store->getName() != $sConfig['name']
+            || $store->getIsActive() != (isset($sConfig['active'])? $sConfig['active']:1)
+            || $store->getSortOrder() != $sConfig['sort_order']) {
+
+                $store->setWebsiteId($storeGroup->getWebsiteId())
+                    ->setGroupId($storeGroup->getId())
+                    ->setName($sConfig['name'])
+                    ->setIsActive(isset($sConfig['active']) ? $sConfig['active'] : 1)
+                    ->setSortOrder($sConfig['sort_order'])
+                    ->save();
+
+                $this->log("Updated store " . $store->getCode());
+            }
         } else {
             $store = Mage::getModel('core/store');
             $store->setCode($sConfig['code'])

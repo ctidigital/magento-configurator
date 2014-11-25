@@ -10,7 +10,7 @@ A Magento module initially created by [CTI Digital] to create and maintain datab
 If you're interested about finding out more about the background of the configurator, watch this lightning talk by [Rick Steckles] at Mage Titans in Manchester on [YouTube].
 
 ### Version
-0.2.0
+0.3.0
 
 ## Installation via Modman
 
@@ -168,7 +168,8 @@ Here you can define any components you wish to contribute. Should you wish to ex
 ### Component Helper
 
 You'll need to create a helper class within the module, preferably in a Components subfolder and it should extend `Cti_Configurator_Helper_Components_Abstract` which will require you to:
- - Specify the file you wish to process by assigning an absolute path to the variable `$this->_filePath1`
+ - Specify a unique component name for logging processes and event dispatches `$this->_componentName`.
+ - Specify the file you wish to process by assigning an absolute path to the variable `$this->_filePath1`.
  - (optional) Specify `$this->_filePath2` as a way of splitting your configuration between environments.
  - Create a protected `_processFile()` function to parse your file(s) (and merge) into a format of your choice.
  - Create a protected `_processComponent()` function to process the data you've acquired from the file you've processed.
