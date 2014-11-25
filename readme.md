@@ -143,6 +143,69 @@ Some core magento fields also encrypts our configuration so we can define this a
           value: 111111111
           encrypted: 1
 ```
+### Product Attributes
+The file that is used to maintain product attributes can be found in `app/etc/components/attributes.yaml`. This allows you to modify your custom attributes as well as maintain the attribute options using this file.
+
+Here is a basic required structure for an attribute
+```
+- attributes:
+  - attribute_code:
+      frontend_label: Attribute Code
+      frontend_input: select
+      product_types:
+        - simple
+        - configurable
+        - bundle
+        - grouped
+```
+Here is the basic structure of a typical attribute with its default values:
+```
+- attributes:
+  - attribute_code:
+      is_global: 0
+      is_visible: 1
+      is_searchable: 0
+      is_filterable: 0
+      is_comparable: 0
+      is_visible_on_front: 0
+      is_html_allowed_on_front: 0
+      is_filterable_in_search: 0
+      used_in_product_listing: 0
+      used_for_sort_by: 0
+      is_configurable: 0
+      is_visible_in_advanced_search: 0
+      position: 0
+      is_wysiwyg_enabled: 0
+      is_used_for_promo_rules: 0
+      default_value_text: ''
+      default_value_yesno: 0
+      default_value_date: ''
+      default_value_textarea: ''
+      is_unique: 0
+      is_required: 0
+      frontend_input: boolean
+      search_weight: 1
+```
+We can also specify product options for select type attributes as so:
+```
+- attributes:
+  - colour:
+      frontend_label: Colour
+      frontend_input: select
+      product_types:
+        - simple
+      options:
+        - Red
+        - Green
+        - Yellow
+        - Blue
+        - Purple
+        - Pink
+        - Orange
+```
+
+Please note, certain attribute configurations follow certain rules so do ensure you're familiar with how Magento product attributes work in order to make best use of this component. An attribute's configuration elements are simply fields in the `catalog_eav_attribute` table with a few exceptions.
+
 
 ## Development
 
