@@ -16,6 +16,7 @@
                 <website>cti_configurator/components_website</website>
                 <config>cti_configurator/components_config</config>
                 <attributes>cti_configurator/components_attributes</attributes>
+                <attributeSets>cti_configurator/components_attributeSets</attributeSets>
             </components>
         </configurator_processors>
     </global>
