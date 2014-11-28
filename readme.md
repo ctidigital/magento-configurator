@@ -16,16 +16,16 @@ If you're interested about finding out more about the background of the configur
 
 ```sh
 $ cd <your magento install>
-$ modman init
 $ modman clone git@github.com:ctidigital/magento-configurator.git
 ```
 
 ## How To Use
-Firstly, we'll need to configure our components. You can find how to configure your component under the heading "Components"
+Firstly, we'll need to configure our components. You can find how to configure your component under the heading "Components". As a minimum you will need to create the file `app/etc/components/websites.yaml` with one website.
 
 In your magento directory you can run the configurator using:
 ```sh
-$ php shell/configurator.php
+$ cd <your magento install>/shell
+$ php configurator.php
 ```
 
 ## Components
