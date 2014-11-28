@@ -16,8 +16,9 @@ class Cti_Configurator_Helper_Components_Config extends Cti_Configurator_Helper_
     protected function _processFile($globalFile,$localFile = null) {
 
         if (!file_exists($globalFile)) {
-            $this->log("No components configuration \nCreate the file " . $globalFile);
-            return;
+            $this->log("No configuration component found in: " . $globalFile);
+            $this->log("Skipping");
+            throw new Mage_Core_Exception("Cannot find global configuration YAML file.");
         }
 
         // Decode the YAML File

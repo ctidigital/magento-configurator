@@ -12,8 +12,9 @@ class Cti_Configurator_Helper_Components_Website extends Cti_Configurator_Helper
     protected function _processFile($globalFile,$localFile = null) {
 
         if (!file_exists($globalFile)) {
-            $this->log("No website configuration \nCreate the file " . $globalFile);
-            return;
+            $this->log("No website configuration found in: " . $globalFile);
+            $this->log("Skipping");
+            throw new Mage_Core_Exception("Cannot find website configuration YAML file.");
         }
 
         // Decode the YAML File
