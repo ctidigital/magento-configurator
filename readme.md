@@ -231,9 +231,9 @@ Using ```inherit: <Attribute Set Name>``` will use an existing attribute set as 
 Please use our sample file as an example.
 
 #### Limitations
-- Can not create new attribute group names.
-- Can not move attributes between attribute groups.
-- Can not remove attributes from attribute sets.
+- Cannot create new attribute group names.
+- Cannot move attributes between attribute groups.
+- Cannot remove existing attributes from attribute sets.
 
 ## Development
 
@@ -269,8 +269,6 @@ The abstract function should handle the rest. You can look at our `Helper/Compon
 
 ## Roadmap
 
- - Create a component for Attribute Sets
- - Create a component for Attributes
  - Create a component for CMS Pages
  - Create a component for CMS Static Blocks
  - Create a component for Admin Users & Roles
