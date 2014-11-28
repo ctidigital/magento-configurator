@@ -17,7 +17,6 @@ If you're interested about finding out more about the background of the configur
 ### Using Modman
 ```sh
 $ cd <your magento install>
-$ modman init
 $ modman clone https://github.com/ctidigital/magento-configurator.git
 ```
 ### Traditionally
@@ -25,11 +24,12 @@ $ modman clone https://github.com/ctidigital/magento-configurator.git
 Download and copy the contents of the `src/` folder into your Magento base directory.
 
 ## How To Use
-Firstly, we'll need to configure our components. You can find how to configure your component under the heading "Components"
+Firstly, we'll need to configure our components. You can find how to configure your component under the heading "Components".
 
 In your magento directory you can run the configurator using:
 ```sh
-$ php shell/configurator.php
+$ cd <your magento install>/shell
+$ php configurator.php
 ```
 
 ## Components
