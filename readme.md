@@ -10,15 +10,19 @@ A Magento module initially created by [CTI Digital] to create and maintain datab
 If you're interested about finding out more about the background of the configurator, watch this lightning talk by [Rick Steckles] at Mage Titans in Manchester on [YouTube].
 
 ### Version
-0.3.0
+0.4.0
 
-## Installation via Modman
+## Installation
 
+### Using Modman
 ```sh
 $ cd <your magento install>
 $ modman init
-$ modman clone git@github.com:ctidigital/magento-configurator.git
+$ modman clone https://github.com/ctidigital/magento-configurator.git
 ```
+### Traditionally
+
+Download and copy the contents of the `src/` folder into your Magento base directory.
 
 ## How To Use
 Firstly, we'll need to configure our components. You can find how to configure your component under the heading "Components"
@@ -206,6 +210,30 @@ We can also specify product options for select type attributes as so:
 
 Please note, certain attribute configurations follow certain rules so do ensure you're familiar with how Magento product attributes work in order to make best use of this component. An attribute's configuration elements are simply fields in the `catalog_eav_attribute` table with a few exceptions.
 
+#### Attribute Sets
+
+Having created out custom product attributes these will need to be included as part of an attribute set. For this we will require the file `app/etc/components/attribute-sets.yaml` and the contents of the file will follow as so:
+```
+- attribute_sets:
+  -
+    name: Example Attribute Set
+    inherit: Attribute Set to Inherit (Default)
+    groups:
+      -
+        name: Attribute Group Name (General)
+        attributes:
+          - attribute_code
+          - attribute_code2
+```
+
+Using ```inherit: <Attribute Set Name>``` will use an existing attribute set as a skeleton for your new attribute sets. By default, it will inherit attribute set named ```Default``` which must already exists in your Magento install.
+
+Please use our sample file as an example.
+
+#### Limitations
+- Can not create new attribute group names.
+- Can not move attributes between attribute groups.
+- Can not remove attributes from attribute sets.
 
 ## Development
 
@@ -245,6 +273,7 @@ The abstract function should handle the rest. You can look at our `Helper/Compon
  - Create a component for Attributes
  - Create a component for CMS Pages
  - Create a component for CMS Static Blocks
+ - Create a component for Admin Users & Roles
  - Create a component for Categories
  - Create a component for Products
  - Better CLI Logging
