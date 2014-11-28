@@ -210,7 +210,7 @@ We can also specify product options for select type attributes as so:
 
 Please note, certain attribute configurations follow certain rules so do ensure you're familiar with how Magento product attributes work in order to make best use of this component. An attribute's configuration elements are simply fields in the `catalog_eav_attribute` table with a few exceptions.
 
-#### Attribute Sets
+### Attribute Sets
 
 Having created out custom product attributes these will need to be included as part of an attribute set. For this we will require the file `app/etc/components/attribute-sets.yaml` and the contents of the file will follow as so:
 ```
