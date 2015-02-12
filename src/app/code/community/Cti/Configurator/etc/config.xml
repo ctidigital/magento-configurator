@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Cti_Configurator>
-            <version>0.4.0</version>
+            <version>0.5.0</version>
         </Cti_Configurator>
     </modules>
     <global>
@@ -17,6 +17,7 @@
                 <config>cti_configurator/components_config</config>
                 <attributes>cti_configurator/components_attributes</attributes>
                 <attributeSets>cti_configurator/components_attributeSets</attributeSets>
+                <categories>cti_configurator/components_categories</categories>
             </components>
         </configurator_processors>
     </global>
