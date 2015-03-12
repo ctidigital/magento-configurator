@@ -1,6 +1,6 @@
 - attribute_sets:
   -
-    name: Example Attribute Set
+    name: Shirts
     inherit: Default
     groups:
       -

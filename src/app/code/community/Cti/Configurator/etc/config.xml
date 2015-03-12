@@ -18,6 +18,7 @@
                 <attributes>cti_configurator/components_attributes</attributes>
                 <attributeSets>cti_configurator/components_attributeSets</attributeSets>
                 <categories>cti_configurator/components_categories</categories>
+                <products>cti_configurator/components_products</products>
             </components>
         </configurator_processors>
     </global>
