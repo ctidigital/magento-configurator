@@ -39,8 +39,11 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
             $attribute = Mage::getModel('catalog/resource_eav_attribute');
             $attribute->setData('attribute_code',$code);
             $canSave = true;
+            $data = array_replace_recursive($this->_getAttributeDefaultSettings(),$data);
+            $data['backend_type'] = $attribute->getBackendTypeByInput($data['frontend_input']);
+            $data['source_model'] = Mage::helper('catalog/product')->getAttributeSourceModelByInputType($data['frontend_input']);
+            $data['backend_model'] = Mage::helper('catalog/product')->getAttributeBackendModelByInputType($data['frontend_input']);
         }
-        $data = array_replace_recursive($this->_getAttributeDefaultSettings(),$data);
 
         foreach ($data as $key=>$value) {
 
@@ -70,8 +73,10 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
         };
         unset($key);
         unset($value);
-        $attribute->setEntityTypeId(Mage::getModel('eav/entity')->setType('catalog_product')->getTypeId());
-        $attribute->setIsUserDefined(1);
+        if (!$attribute->getEntityTypeId()) {
+            $attribute->setEntityTypeId(Mage::getModel('eav/entity')->setType('catalog_product')->getTypeId());
+            $attribute->setIsUserDefined(1);
+        }
         try {
             if ($canSave) {
                 $attribute->save();
@@ -197,6 +202,7 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
             'is_unique'                 => 0,
             'is_required'               => 0,
             'frontend_input'            => 'boolean',
+            'backend_type'              => 'static',
             'search_weight'             => 1 // EE only
         );
     }
