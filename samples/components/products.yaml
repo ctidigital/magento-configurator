@@ -2,7 +2,7 @@
   - t-shirt1:
       name: That T-Shirt
       url_key: that_tshirt
-      imagefile: AVA00034-direct-ELISA.png
+      imagefile: tshirt.png
       attribute_set: Shirts
       type_id: configurable
       weight: 1
@@ -68,3 +68,21 @@
             value: Brown
             is_percent: 0
             pricing_value: 0
+  - laptop:
+      name: Laptop
+      url_key: that_laptop
+      imagefile: laptop.png
+      attribute_set: Default
+      type_id: simple
+      weight: 1
+      status: 1
+      websites:
+        - base
+        - test
+        - test1
+      description: Standard Laptop
+      short_description: Standard Laptop
+      country_of_manufacture: cn
+      price: 1000
+      tax_class_id: 2
+      qty: 10

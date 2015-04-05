@@ -65,6 +65,8 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
 
             foreach ($data as $key=>$value) {
 
+                $attributeLog = true;
+
                 // Setting the ID of the attribute set correctly
                 if ($key == "attribute_set") {
                     $attribute = $this->_getAttributeSet($value);
@@ -125,13 +127,27 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
                     continue;
                 }
 
+                // Get the attribute
                 $attribute = $this->_getAttribute($key);
+
+                // Check if the attribute exists
                 if (!$attribute && !$this->_isStandardAttributeOption($key)) {
                     $this->log($this->__('Attribute %s does not exist',$key,$child));
                     continue;
                     //throw new Exception($this->__('Attribute %s does not exist',$key));
                 }
 
+                // If the value has to be obtained from a file - fetch it
+                if (!is_array($value) && (strpos($value,'file:') !== false)) {
+                    $filepath = substr($value,strlen('file: '));
+                    $filepath = Mage::getBaseDir('etc') . '/components/'.$filepath;
+                    if (file_exists($filepath)) {
+                        $value = file_get_contents($filepath);
+                        $attributeLog = false;
+                    }
+                }
+
+                // If it is a multiselect value, get the relevant IDs to save as the value
                 if (!$this->_isStandardAttributeOption($key) && $attribute->getFrontendInput() == "multiselect") {
                     $values = array();
                     foreach ($value as $optionValue) {
@@ -147,6 +163,7 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
                     unset($values);
                 }
 
+                // if it is a standard select value, get the option ID to save as the value
                 if (!$this->_isStandardAttributeOption($key) && $attribute->getFrontendInput() == "select") {
                     $optionId = $this->_getAttributeOptionIdByValue($attribute,$value);
                     if (!$optionId) {
@@ -156,17 +173,21 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
                     unset($optionId);
                 }
 
+                // Save the value if not equal to the existing value
                 if ($product->getData($key) != $value) {
                     $product->setData($key, $value);
                     if (is_array($value)) {
                         $value = implode(',',$value);
                     }
-                    $this->log($this->__('Product (%s) - Attribute %s -> %s', $sku, $key, $value),$child);
+                    if ($attributeLog) {
+                        $this->log($this->__('Product (%s) - Attribute %s -> %s', $sku, $key, $value), $child);
+                    }
                 }
                 unset($attribute);
             }
             unset($key);
             unset($value);
+            unset($attributeLog);
 
             // Add product image if specified and the file exists
             $imageLocation = Mage::getBaseDir('etc') . '/components/images/';
