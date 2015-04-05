@@ -40,8 +40,14 @@ abstract class Cti_Configurator_Helper_Components_Abstract extends Mage_Core_Hel
         $this->_cliLog = true;
     }
 
-    protected function log($msg,$logLevel = 0) {
-        if ($this->_cliLog) echo $msg ."\n";
+    protected function log($msg,$nest = 0,$logLevel = 0) {
+        if ($this->_cliLog) {
+            for($i = 0; $i < $nest; $i++) {
+                echo " | ";
+            }
+
+            echo $msg .PHP_EOL;
+        }
     }
 
     abstract protected function _processFile($file1,$file2 = null);

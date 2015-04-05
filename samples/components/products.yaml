@@ -1,0 +1,88 @@
+- products:
+  - t-shirt1:
+      name: That T-Shirt
+      url_key: that_tshirt
+      imagefile: tshirt.png
+      attribute_set: Shirts
+      type_id: configurable
+      weight: 1
+      status: 1
+      websites:
+        - base
+        - test
+        - test1
+      description: Standard T-Shirt
+      short_description: Standard T-Shirt
+      country_of_manufacture: in
+      price: 10
+      tax_class_id: 2
+      qty: 100
+      configurable_attributes:
+        - colour
+      simple_products:
+        - red:
+            label: Red
+            attribute: colour
+            value: Red
+            is_percent: 0
+            pricing_value: 0
+        - green:
+            label: Green
+            attribute: colour
+            value: Green
+            is_percent: 0
+            pricing_value: 0
+        - yellow:
+            label: Yellow
+            attribute: colour
+            value: Yellow
+            is_percent: 0
+            pricing_value: 0
+        - blue:
+            label: Blue
+            attribute: colour
+            value: Blue
+            is_percent: 0
+            pricing_value: 0
+        - purple:
+            label: Purple
+            attribute: colour
+            value: Purple
+            is_percent: 0
+            pricing_value: 0
+        - pink:
+            label: Pink
+            attribute: colour
+            value: Pink
+            is_percent: 0
+            pricing_value: 1
+        - orange:
+            label: Orange
+            attribute: colour
+            value: Orange
+            is_percent: 0
+            pricing_value: 0
+        - brown:
+            label: Brown
+            attribute: colour
+            value: Brown
+            is_percent: 0
+            pricing_value: 0
+  - laptop:
+      name: Laptop
+      url_key: that_laptop
+      imagefile: laptop.png
+      attribute_set: Default
+      type_id: simple
+      weight: 1
+      status: 1
+      websites:
+        - base
+        - test
+        - test1
+      description: Standard Laptop
+      short_description: Standard Laptop
+      country_of_manufacture: cn
+      price: 1000
+      tax_class_id: 2
+      qty: 10
