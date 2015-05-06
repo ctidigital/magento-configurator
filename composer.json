@@ -1,0 +1,12 @@
+{
+    "name": "ctidigital/magento-configurator",
+    "description": "Magento Configurator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "CTI Digital",
+            "email": "sales@ctidigital.com"
+        }
+    ],
+    "require": {}
+}
