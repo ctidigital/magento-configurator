@@ -1,6 +1,7 @@
 {
     "name": "ctidigital/magento-configurator",
     "description": "Magento Configurator",
+    "type": "magento-module",
     "license": "MIT",
     "authors": [
         {
