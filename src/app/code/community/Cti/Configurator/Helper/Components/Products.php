@@ -201,7 +201,7 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
             unset($imageLocation);
 
             // Configurable product specific configuration
-            if ($data['type_id'] == "configurable") {
+            if ($data['type_id'] == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
 
                 // Ensure we have configurable attributes
                 if (!isset($data['configurable_attributes'])) {
@@ -234,21 +234,24 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
                     $sData['type_id'] = 'simple';
                     $sData['name'] = $data['name'].' - '.$sProductConfig['label'];
                     $sData['visibility'] = Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE;
-                    $sData[$sProductConfig['attribute']] = $sProductConfig['value'];
+                    foreach ($sProductConfig['attributes'] as $attributeKey=>$attributeValue) {
+                        $sData[$attributeKey] = $attributeValue;
+                    }
                     $sProduct = $this->_addUpdateProduct($sku.'-'.$key,$sData,true);
 
-                    $attribute = $this->_getAttribute($sProductConfig['attribute']);
 
                     // Associate the product
-                    $configurableProductsData[$sProduct->getId()] = array(
-                        '0' => array(
-                            'label' => $sProductConfig['label'],
-                            'attribute' => $attribute->getId(),
-                            'value' => $this->_getAttributeOptionIdByValue($attribute,$sProductConfig['value']),
-                            'is_percent' => $sProductConfig['is_percent'],
+                    foreach ($sProductConfig['attributes'] as $attributeKey=>$attributeValue) {
+                        $attribute = $this->_getAttribute($attributeKey);
+                        $configurableProductsData[$sProduct->getId()][] = array(
+                            'label'         => $sProductConfig['label'],
+                            'attribute'     => $attribute->getId(),
+                            'value'         => $this->_getAttributeOptionIdByValue($attribute, $attributeValue),
+                            'is_percent'    => $sProductConfig['is_percent'],
                             'pricing_value' => $sProductConfig['pricing_value']
-                        )
-                    );
+                        );
+                    }
+                    unset($sProductConfig['attributes']);
                 }
 
                 $product->setConfigurableProductsData($configurableProductsData);
