@@ -20,6 +20,7 @@
                 <categories>cti_configurator/components_categories</categories>
                 <products>cti_configurator/components_products</products>
                 <tax>cti_configurator/components_tax</tax>
+                <customerGroups>cti_configurator/components_customerGroups</customerGroups>
             </components>
         </configurator_processors>
     </global>

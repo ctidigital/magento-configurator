@@ -1,0 +1,7 @@
+- groups:
+  -
+    customer_group_code: NOT LOGGED IN
+    tax_class: Retail Customer
+  -
+    customer_group_code: General
+    tax_class: Retail Customer
