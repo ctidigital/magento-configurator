@@ -23,6 +23,7 @@
                 <customerGroups>cti_configurator/components_customerGroups</customerGroups>
                 <media>cti_configurator/components_media</media>
                 <pages>cti_configurator/components_pages</pages>
+                <staticBlocks>cti_configurator/components_staticBlocks</staticBlocks>
             </components>
         </configurator_processors>
     </global>
