@@ -68,15 +68,27 @@ class Cti_Configurator_Helper_Components_Categories extends Cti_Configurator_Hel
             ->addAttributeToSelect('description')
             ->getFirstItem();
 
+        $canSave = false;
+
         // If it does exist, update the description
         if ($category->getId()) {
-            $category
-                ->setDescription($data['description'])
-                ->setUrlKey($data['url_key'])
-                ->setIsAnchor($data['is_anchor']);
+            foreach ($data as $key=>$value) {
+                if ($key == "categories") {
+                    continue;
+                }
+                if ($key == "products") {
+                    continue;
+                }
+                if ($category->getData($key) == $value) {
+                    continue;
+                }
+                $category->setData($key,$value);
+                $canSave = true;
+            }
 
         } else {
 
+            $canSave = true;
             $category = Mage::getModel('catalog/category')
                 ->setName($data['name'])
                 ->setParentId($parentId)
@@ -103,8 +115,10 @@ class Cti_Configurator_Helper_Components_Categories extends Cti_Configurator_Hel
             $category->setPostedProducts($products);
         }
 
-        $category->save();
-        $this->log($this->__('Category %s saved',$category->getName()));
+        if ($canSave) {
+            $category->save();
+            $this->log($this->__('Category %s saved', $category->getName()));
+        }
 
         // Recursive category creation
         if (isset($data['categories'])) {
