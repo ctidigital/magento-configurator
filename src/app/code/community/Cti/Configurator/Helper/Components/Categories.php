@@ -61,11 +61,13 @@ class Cti_Configurator_Helper_Components_Categories extends Cti_Configurator_Hel
             throw new Mage_Core_Exception('No root category id assignable.');
         }
 
+        /* @var $category Mage_Catalog_Model_Category */
+
         // Check if the category with that name exists and has the same parent
         $category = Mage::getResourceModel('catalog/category_collection')
             ->addAttributeToFilter('name',$data['name'])
             ->addFieldToFilter('parent_id',$parentId)
-            ->addAttributeToSelect('description')
+            ->addAttributeToSelect('*')
             ->getFirstItem();
 
         $canSave = false;
@@ -77,6 +79,9 @@ class Cti_Configurator_Helper_Components_Categories extends Cti_Configurator_Hel
                     continue;
                 }
                 if ($key == "products") {
+                    continue;
+                }
+                if ($key == "store_group") {
                     continue;
                 }
                 if ($category->getData($key) == $value) {
@@ -117,7 +122,7 @@ class Cti_Configurator_Helper_Components_Categories extends Cti_Configurator_Hel
 
         if ($canSave) {
             $category->save();
-            $this->log($this->__('Category %s saved', $category->getName()));
+            $this->log($this->__('Category %s saved', $category->getName()),($category->getLevel()-2));
         }
 
         // Recursive category creation
