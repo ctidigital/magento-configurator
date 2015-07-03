@@ -65,9 +65,14 @@ class Cti_Configurator_Helper_Components_Users extends Cti_Configurator_Helper_C
 
                 foreach ($data as $key => $value) {
 
+                    if ($key == "role") {
+                        continue;
+                    }
+
                     if ($user->getData($key) == $value) {
                         continue;
                     }
+
                     $user->setData($key,$value);
                     $canSave = true;
                     $this->log($this->__('Set soap user record for %s key %s to value %s',$username,$key,$value));
@@ -104,6 +109,7 @@ class Cti_Configurator_Helper_Components_Users extends Cti_Configurator_Helper_C
                         $userRole
                             ->setParentId($parentRole->getId())
                             ->setRoleType('U')
+                            ->setTreeLevel(1)
                             ->setUserId($user->getId())
                             ->save();
 
