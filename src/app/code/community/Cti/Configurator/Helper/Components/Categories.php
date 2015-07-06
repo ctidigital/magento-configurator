@@ -73,37 +73,33 @@ class Cti_Configurator_Helper_Components_Categories extends Cti_Configurator_Hel
         $canSave = false;
 
         // If it does exist, update the description
-        if ($category->getId()) {
-            foreach ($data as $key=>$value) {
-                if ($key == "categories") {
-                    continue;
-                }
-                if ($key == "products") {
-                    continue;
-                }
-                if ($key == "store_group") {
-                    continue;
-                }
-                if ($category->getData($key) == $value) {
-                    continue;
-                }
-                $category->setData($key,$value);
-                $canSave = true;
-            }
+        if (!$category->getId()) {
 
-        } else {
-
-            $canSave = true;
             $category = Mage::getModel('catalog/category')
                 ->setName($data['name'])
                 ->setParentId($parentId)
-                ->setDescription($data['description'])
-                ->setUrlKey($data['url_key'])
                 ->setIsActive(1)
                 ->setDisplayMode("PRODUCTS")
-                ->setPath(Mage::getModel('catalog/category')->load($parentId)->getPath())
-                ->setIsAnchor($data['is_anchor']);
+                ->setPath(Mage::getModel('catalog/category')->load($parentId)->getPath());
 
+            $canSave = true;
+        }
+
+        foreach ($data as $key=>$value) {
+            if ($key == "categories") {
+                continue;
+            }
+            if ($key == "products") {
+                continue;
+            }
+            if ($key == "store_group") {
+                continue;
+            }
+            if ($category->getData($key) == $value) {
+                continue;
+            }
+            $category->setData($key,$value);
+            $canSave = true;
         }
 
         // Add products
