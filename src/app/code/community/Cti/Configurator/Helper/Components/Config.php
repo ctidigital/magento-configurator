@@ -7,7 +7,7 @@ class Cti_Configurator_Helper_Components_Config extends Cti_Configurator_Helper_
     public function __construct() {
 
         $this->_filePath1 = Mage::getBaseDir().DS.'app'.DS.'etc'.DS.'components'.DS.'config.yaml';
-        $this->_filePath2 = null; // Could be some symlinked file environment specific
+        $this->_filePath2 = Mage::getBaseDir().DS.'app'.DS.'etc'.DS.'local_components'.DS.'config.yaml'; // Could be some symlinked file environment specific
 
         $this->_coreConfigModel = Mage::getModel('core/config');
 
