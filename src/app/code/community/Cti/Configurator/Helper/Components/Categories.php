@@ -29,9 +29,9 @@ class Cti_Configurator_Helper_Components_Categories extends Cti_Configurator_Hel
 
         if (isset($data['categories'])) {
 
-            foreach ($data['categories'] as $i=>$data) {
+            foreach ($data['categories'] as $i=>$catData) {
 
-                $this->_addCategory($data);
+                $this->_addCategory($catData);
             }
         }
     }

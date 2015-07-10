@@ -17,8 +17,8 @@
                 <config>cti_configurator/components_config</config>
                 <attributes>cti_configurator/components_attributes</attributes>
                 <attributeSets>cti_configurator/components_attributeSets</attributeSets>
-                <categories>cti_configurator/components_categories</categories>
                 <products>cti_configurator/components_products</products>
+                <categories>cti_configurator/components_categories</categories>
                 <tax>cti_configurator/components_tax</tax>
                 <customerGroups>cti_configurator/components_customerGroups</customerGroups>
                 <media>cti_configurator/components_media</media>
