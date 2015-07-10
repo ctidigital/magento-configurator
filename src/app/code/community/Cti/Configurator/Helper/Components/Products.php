@@ -21,6 +21,8 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
 
     protected $_componentName = 'products';
 
+    protected $_images = array();
+
     public function __construct() {
         $this->_filePath1 = Mage::getBaseDir() . DS . 'app' . DS . 'etc' . DS . 'components' . DS . 'products.yaml';
     }
@@ -62,6 +64,7 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
             }
 
             $data = array_replace_recursive($this->_getProductDefaultSettings(),$data);
+            $product->setMediaGallery(array('images'=>array (), 'values'=>array ()));
 
             foreach ($data as $key=>$value) {
 
@@ -113,22 +116,14 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
                     continue;
                 }
 
-                // Check if there is an image file
-                if ($key == "imagefile") {
-                    if ($value == "") {
-                        $product->setData(array(
-                            'image' => 'no_selection',
-                            'small_image' => 'no_selection',
-                            'thumbnail' => 'no_selection'
-                        ));
-
-                        $this->log($this->__('Product (%s) has no image file', $sku),$child);
-                    }
+                if ($key == "images") {
+                    $this->_downloadAndPrepareImages($sku,$value);
                     continue;
                 }
 
                 // Get the attribute
                 $attribute = $this->_getAttribute($key);
+
 
                 // Check if the attribute exists
                 if (!$attribute && !$this->_isStandardAttributeOption($key)) {
@@ -173,6 +168,18 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
                     unset($optionId);
                 }
 
+
+                // If the attribute is a media image attribute
+                if (!$this->_isStandardAttributeOption($key) && $attribute->getFrontendInput() == "media_image") {
+                    if (isset($this->_images[$value]) && file_exists($this->_images[$value])) {
+                        $product->addImageToMediaGallery($this->_images[$value], array($key), false, false);
+                    } else {
+                        $this->log($this->__('No image set in cache'));
+                    }
+                    continue;
+
+                }
+
                 // Save the value if not equal to the existing value
                 if ($product->getData($key) != $value) {
                     $product->setData($key, $value);
@@ -190,13 +197,13 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
             unset($attributeLog);
 
             // Add product image if specified and the file exists
-            $imageLocation = Mage::getBaseDir('etc') . '/components/images/';
-
-            if ((isset($data['imagefile'])) && (file_exists($imageLocation . $data['imagefile']))) {
-                $product->setMediaGallery(array('images'=>array (), 'values'=>array ()));
-                $product->addImageToMediaGallery($imageLocation . $data['imagefile'], array('image', 'small_image', 'thumbnail'), false, false);
-                $this->log($this->__('Product (%s) - Attribute %s -> %s', $sku, 'image', $data['imagefile']),$child);
-            }
+//            $imageLocation = Mage::getBaseDir('etc') . '/components/images/';
+//
+//            if ((isset($data['imagefile'])) && (file_exists($imageLocation . $data['imagefile']))) {
+//                $product->setMediaGallery(array('images'=>array (), 'values'=>array ()));
+//                $product->addImageToMediaGallery($imageLocation . $data['imagefile'], array('image', 'small_image', 'thumbnail'), false, false);
+//                $this->log($this->__('Product (%s) - Attribute %s -> %s', $sku, 'image', $data['imagefile']),$child);
+//            }
 
             unset($imageLocation);
 
@@ -261,6 +268,7 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
 
             $product->setCreatedAt(strtotime('now'));
             $product->save();
+            $this->_images = array();
             return $product;
         } catch (Exception $e) {
             $this->log($e->getMessage());
@@ -350,6 +358,47 @@ class Cti_Configurator_Helper_Components_Products extends Cti_Configurator_Helpe
             }
         }
         return false;
+    }
+
+    private function _downloadAndPrepareImages($sku,$images) {
+
+        $tmpProductsFolder = Mage::getBaseDir('media').DIRECTORY_SEPARATOR.'product-images'.DIRECTORY_SEPARATOR;
+
+        if (!is_array($images)) {
+            throw new Exception($this->__("An array of images should be supplied"));
+        }
+
+        if (!file_exists($tmpProductsFolder)) {
+
+            // If the node does not have a name
+            if (!is_numeric($tmpProductsFolder)) {
+
+                // Then it is a directory so create it
+                mkdir($tmpProductsFolder, 0755, true);
+                $this->log("Created new media directory $tmpProductsFolder");
+            }
+        }
+
+        foreach ($images as $i=>$imagePath) {
+
+            $pathinfo = pathinfo($imagePath);
+            $extension = $pathinfo['extension'];
+            $newPath = $tmpProductsFolder.$sku.'_'.$i.'.'.$extension;
+
+            if (!file_exists($newPath)) {
+
+                // Get the contents of the file
+                $this->log("Downloading image file from ".$imagePath);
+
+                $fileContents = file_get_contents($imagePath);
+
+                // Save it in the new path
+                file_put_contents($newPath, $fileContents);
+                unset($fileContents);
+                $this->log("Created new file $newPath");
+            }
+            $this->_images[$i] = $newPath;
+        }
     }
 
     private function _getProductDefaultSettings() {
