@@ -76,7 +76,7 @@ class Cti_Configurator_Helper_Components_Media extends Cti_Configurator_Helper_C
                 if (!is_numeric($name)) {
 
                     // Then it is a directory so create it
-                    mkdir($newPath, 0755, true);
+                    mkdir($newPath, 0777, true);
                     $this->log("Created new media directory $name",$nest);
                 }
             } else {
