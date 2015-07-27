@@ -19,6 +19,7 @@
                 <attributeSets>cti_configurator/components_attributeSets</attributeSets>
                 <products>cti_configurator/components_products</products>
                 <categories>cti_configurator/components_categories</categories>
+                <relatedProducts>cti_configurator/components_relatedProducts</relatedProducts>
                 <tax>cti_configurator/components_tax</tax>
                 <customerGroups>cti_configurator/components_customerGroups</customerGroups>
                 <media>cti_configurator/components_media</media>
