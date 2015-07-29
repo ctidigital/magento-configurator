@@ -169,7 +169,6 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
             */
 
             $this->log($this->__("Created attribute option %s for %s",$option,$attribute->getAttributeCode()));
-            $this->log(memory_get_usage());
         }
 
         // Remove old attributes
