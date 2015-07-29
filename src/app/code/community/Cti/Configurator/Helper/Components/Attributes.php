@@ -136,29 +136,40 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
             }
         }
 
+        $attributeId = $attribute->getId();
         $optionsToAdd = array_diff($options,$currentOptionFormat);
         $optionsToRemove = array_diff($currentOptionFormat,$options);
+        $eav_entity_setup = new Mage_Eav_Model_Entity_Setup('core_setup');
 
         // Create new attributes
         foreach ($optionsToAdd as $option) {
 
-            // Check if the option already exists
-            if (!$attribute->getSource()->getOptionId($option)) {
+            unset($new_option);
 
-                $attribute->setData(
-                    'option',
-                    array(
-                        'value'=>array(
-                            'option'=>array(
-                                $option
-                            )
+            // Check if the option already exists
+            if ($attribute->getSource()->getOptionId($option)) {
+                $this->log($this->__("Exsting attribute option %s for %s",$option,$attribute->getAttributeCode()));
+            }
+            $new_option['attribute_id'] = $attributeId;
+            $new_option['value']['_custom_'.$option][0] = $option;
+            $eav_entity_setup->addAttributeOption($new_option);
+
+            /*
+            $attribute->setData(
+                'option',
+                array(
+                    'value'=>array(
+                        'option'=>array(
+                            $option
                         )
                     )
-                );
-                $attribute->save();
+                )
+            );
+            $attribute->save();
+            */
 
-                $this->log($this->__("Created attribute option %s for %s",$option,$attribute->getAttributeCode()));
-            }
+            $this->log($this->__("Created attribute option %s for %s",$option,$attribute->getAttributeCode()));
+            $this->log(memory_get_usage());
         }
 
         // Remove old attributes
