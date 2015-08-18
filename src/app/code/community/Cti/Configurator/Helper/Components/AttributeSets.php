@@ -57,7 +57,12 @@ class Cti_Configurator_Helper_Components_AttributeSets extends Cti_Configurator_
                     $attributeGroupId = $this->_getAttributeGroupId($attributeSet,$group['name']);
 
                     if (!$attributeGroupId) {
-                        $this->log($this->__('No attribute group found named "%s"',$group['name']));
+                        // Functionality to create new attribute groups
+                        $attributeGroupId = $this->_createAttributeGroup($attributeSet, $group['name'])->getId();
+                        $this->log($this->__('Attribute group named "%s" was created for attribute set "%s"',
+                            $group['name'],
+                            $attributeSet->getAttributeSetName()
+                        ));
                     }
 
                     // @todo Functionality to create new attribute groups
@@ -128,6 +133,23 @@ class Cti_Configurator_Helper_Components_AttributeSets extends Cti_Configurator_
         $attributeSet->validate();
         $attributeSet->save();
         return $attributeSet;
+    }
+
+    /**
+     * Creates an attribute group
+     *
+     * @param $attributeSet
+     * @param $groupName
+     * @return Mage_Eav_Model_Entity_Attribute_Group
+     */
+    private function _createAttributeGroup($attributeSet, $groupName) {
+
+        $attributeGroup = Mage::getModel('eav/entity_attribute_group')
+            ->setAttributeSetId($attributeSet->getId())
+            ->setAttributeGroupName($groupName);
+
+        $attributeGroup->save();
+        return $attributeGroup;
     }
 
     /**
