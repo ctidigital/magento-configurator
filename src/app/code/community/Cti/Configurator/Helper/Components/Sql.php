@@ -60,6 +60,7 @@ class Cti_Configurator_Helper_Components_Sql extends Cti_Configurator_Helper_Com
                 $this->log($this->__("Executed sql script %s",$file));
 
             } catch (Exception $e) {
+                $this->log($this->__("Error executing script %s: %s",$file,$e->getMessage()));
                 throw new Exception($e->getMessage());
             }
         }
