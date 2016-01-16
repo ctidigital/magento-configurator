@@ -145,8 +145,8 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
         // Ordered by position in YAML
         $optionsPosition = array_flip($options);
 
-        $toCreate = array_diff($options, array_keys($currentOptions));
-        $toDelete = array_diff(array_keys($currentOptions), $options);
+        $toCreate = array_values(array_diff($options, array_keys($currentOptions)));
+        $toDelete = array_values(array_diff(array_keys($currentOptions), $options));
 
         // Placeholders
         $value  = [];
@@ -179,7 +179,7 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
                 "order"  => $order,
                 "delete" => $delete
             ],
-            "default" => [ $default ]
+            "default" => [ (in_array($default, $toCreate) ? self::NUMBER_MARKER . $default : $default) ]
         ];
 
         $attribute->addData($data);
