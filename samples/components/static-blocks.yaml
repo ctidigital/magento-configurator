@@ -1,0 +1,7 @@
+- blocks:
+  - footer_block_1:
+      title: Footer Block
+      is_active: 1
+      contents:
+        - all:
+            content_file: footer_block_1.html
