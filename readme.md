@@ -32,6 +32,16 @@ $ cd <your magento install>/shell
 $ php configurator.php
 ```
 
+### List Available Components
+```sh
+$ php configurator.php --list-components
+```
+
+### Run Specific Components
+```sh
+$ php configurator.php --run-components "media,pages,staticBlocks"
+```
+
 ## Components
 
 ### Websites & Stores
@@ -234,7 +244,6 @@ Please use our sample file as an example.
 There are many other components to help populate Magento which you can view from ```samples/components```. These can help you bootstrap your Magneto install with relevant sample/configuration data.
 
 #### Limitations
-- Cannot create new attribute group names.
 - Cannot move attributes between attribute groups.
 - Cannot remove existing attributes from attribute sets.
 
