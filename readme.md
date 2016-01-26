@@ -10,7 +10,7 @@ A Magento module initially created by [CTI Digital] to create and maintain datab
 If you're interested about finding out more about the background of the configurator, watch this lightning talk by [Rick Steckles] at Mage Titans in Manchester on [YouTube].
 
 ### Version
-0.4.0
+0.15.0
 
 ## Installation
 
@@ -30,6 +30,16 @@ In your magento directory you can run the configurator using:
 ```sh
 $ cd <your magento install>/shell
 $ php configurator.php
+```
+
+### List Available Components
+```sh
+$ php configurator.php --list-components
+```
+
+### Run Specific Components
+```sh
+$ php configurator.php --run-components "media,pages,staticBlocks"
 ```
 
 ## Components
@@ -233,9 +243,11 @@ Having created out custom product attributes these will need to be included as p
 Using ```inherit: <Attribute Set Name>``` will use an existing attribute set as a skeleton for your new attribute sets. By default, it will inherit attribute set named ```Default``` which must already exists in your Magento install.
 
 Please use our sample file as an example.
+### Other Components
+
+There are many other components to help populate Magento which you can view from ```samples/components```. These can help you bootstrap your Magneto install with relevant sample/configuration data.
 
 #### Limitations
-- Cannot create new attribute group names.
 - Cannot move attributes between attribute groups.
 - Cannot remove existing attributes from attribute sets.
 
@@ -273,11 +285,7 @@ The abstract function should handle the rest. You can look at our `Helper/Compon
 
 ## Roadmap
 
- - Create a component for CMS Pages
- - Create a component for CMS Static Blocks
  - Create a component for Admin Users & Roles
- - Create a component for Categories
- - Create a component for Products
  - Better CLI Logging
  - Write Tests
 

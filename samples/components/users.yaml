@@ -1,0 +1,600 @@
+- soap:
+  - users:
+    - soapstar:
+        firstname: Soap
+        lastname: Star
+        email: soap@example.com
+        api_key: s3cr3t4p1k3y
+        is_active: 1
+        role: soapgroup
+  - roles:
+    - soapgroup:
+        parent_id: 0
+        tree_level: 1
+        sort_order: 0
+        role_type: G
+        rules:
+          -
+            resource_id: core
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: core/store
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: core/store/info
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: core/store/list
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: core/magento
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: core/magento/info
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: directory
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: directory/country
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: directory/region
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: customer
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: customer/create
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: customer/update
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: customer/delete
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: customer/info
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: customer/address
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: customer/address/create
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: customer/address/update
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: customer/address/delete
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: customer/address/info
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: catalog
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/category
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/category/create
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/category/update
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/category/move
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/category/delete
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/category/tree
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/category/info
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/category/attributes
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/category/product
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/category/product/assign
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/category/product/update
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/category/product/remove
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/create
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/update
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/delete
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/update_tier_price
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/group_price
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/group_price/update
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/info
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/listOfAdditionalAttributes
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: catalog/product/attributes
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/attribute
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/attribute/read
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/attribute/write
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/attribute/types
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/attribute/create
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: catalog/product/attribute/update
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: catalog/product/attribute/remove
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: catalog/product/attribute/info
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/attribute/option
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/attribute/option/add
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/attribute/option/remove
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/attribute/set
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/attribute/set/list
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/attribute/set/create
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: catalog/product/attribute/set/remove
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: catalog/product/attribute/set/attribute_add
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: catalog/product/attribute/set/attribute_remove
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: catalog/product/attribute/set/group_add
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: catalog/product/attribute/set/group_rename
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: catalog/product/attribute/set/group_remove
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: catalog/product/link
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/link/assign
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/link/update
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/link/remove
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/media
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/media/create
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/media/update
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/media/remove
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option/add
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option/update
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option/types
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option/info
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option/list
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option/remove
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option/value
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option/value/list
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option/value/info
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option/value/add
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option/value/update
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/option/value/remove
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/tag
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/tag/list
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/tag/info
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/tag/add
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/tag/update
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/tag/remove
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/downloadable_link
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/downloadable_link/add
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/downloadable_link/list
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: catalog/product/downloadable_link/remove
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/change
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/info
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/shipment
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/shipment/create
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/shipment/comment
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/shipment/track
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/shipment/info
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/shipment/send
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/invoice
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/invoice/create
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/invoice/comment
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/invoice/capture
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/invoice/void
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/invoice/cancel
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/invoice/info
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/creditmemo
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/creditmemo/create
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/creditmemo/comment
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/creditmemo/cancel
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/creditmemo/info
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: sales/order/creditmemo/list
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: cataloginventory
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: cataloginventory/update
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: cataloginventory/info
+            role_type: G
+            api_permission: allow
+          -
+            resource_id: cart
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/create
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/order
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/info
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/totals
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/license
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/product
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/product/add
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/product/update
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/product/remove
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/product/list
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/product/moveToCustomerQuote
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/customer
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/customer/set
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/customer/addresses
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/shipping
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/shipping/method
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/shipping/list
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/payment
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/payment/method
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/payment/list
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/coupon
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/coupon/add
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: cart/coupon/remove
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: giftmessage
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: giftmessage/set
+            role_type: G
+            api_permission: deny
+          -
+            resource_id: all
+            role_type: G
+            api_permission: deny

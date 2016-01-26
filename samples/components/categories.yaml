@@ -1,0 +1,24 @@
+- categories:
+  -
+    name: 1st Level Category
+    description: Category Description
+    store_group: Main Website Store
+    url_key: first-level-cat
+    is_anchor: 1
+    products:
+      - t-shirt1
+      - laptop
+    categories:
+      -
+        name: 2nd Level Category 1
+        description:
+        url_key: second-level-cat-1
+        products:
+          - t-shirt1
+      -
+        name: 2nd Level Category 2
+        description:
+        url_key: second-level-cat-2
+        is_anchor: 1
+        products:
+          - laptop

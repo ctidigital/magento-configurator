@@ -1,0 +1,10 @@
+- pages:
+  - home:
+      title: Home page
+      is_active: 1
+      root_template: one_column
+      under_version_control: 1
+      contents:
+        - all:
+            content_heading:
+            content_file:

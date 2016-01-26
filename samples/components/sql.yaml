@@ -1,0 +1,2 @@
+sql:
+  - /app/etc/components/sql/sitemap.sql
