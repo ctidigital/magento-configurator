@@ -185,7 +185,7 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
                 "order"  => $order,
                 "delete" => $delete
             ],
-            "default" => [ (in_array($default, $toCreate) ? self::NUMBER_MARKER . $default : $default) ]
+            "default" => [ (in_array($default, $toCreate) && is_numeric($default) ? self::NUMBER_MARKER . $default : $default) ]
         ];
 
         $attribute->addData($data);
