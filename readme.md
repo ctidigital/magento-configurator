@@ -214,9 +214,13 @@ We can also specify product options for select type attributes as so:
         - Yellow
         - Blue
         - Purple
-        - Pink
+        - Pink|default
         - Orange
 ```
+
+Use the marker `|default` to specify the default option. 
+
+Note that the order of the options in the config file determines the sort order of the options.
 
 Please note, certain attribute configurations follow certain rules so do ensure you're familiar with how Magento product attributes work in order to make best use of this component. An attribute's configuration elements are simply fields in the `catalog_eav_attribute` table with a few exceptions.
 

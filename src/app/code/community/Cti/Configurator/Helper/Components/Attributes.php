@@ -1,6 +1,9 @@
 <?php
 class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Helper_Components_Abstract {
 
+    const DEFAULT_MARKER = 'default';
+    const NUMBER_MARKER = '###';
+
     public function __construct() {
         $this->_componentName = 'attributes';
         $this->_filePath1 = Mage::getBaseDir().DS.'app'.DS.'etc'.DS.'components'.DS.'attributes.yaml';
@@ -73,10 +76,12 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
         };
         unset($key);
         unset($value);
+
         if (!$attribute->getEntityTypeId()) {
             $attribute->setEntityTypeId(Mage::getModel('eav/entity')->setType('catalog_product')->getTypeId());
             $attribute->setIsUserDefined(1);
         }
+
         try {
             if ($canSave) {
                 $attribute->save();
@@ -89,7 +94,6 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
             throw $e;
         }
     }
-
 
     /**
      * Gets a particular attribute otherwise
@@ -125,63 +129,68 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
      * @param $attribute
      * @param $options
      */
-    private function _maintainAttributeOptions($attribute,$options) {
+    private function _maintainAttributeOptions($attribute, $options)
+    {
+        $currentOptions = array_filter($attribute->getSource()->getAllOptions(), function ($option) { return $option["label"] !== ""; });
 
-        $currentOptions = $attribute->getSource()->getAllOptions();
+        // Make label => id map of currentOptions
+        $currentOptions = array_combine(
+            array_map(function ($keys) { return $keys['label']; }, $currentOptions),
+            array_map(function ($keys) { return $keys['value']; }, $currentOptions)
+        );
 
-        $currentOptionFormat = array();
-        foreach ($currentOptions as $option) {
-            if ($option['label'] != '') {
-                $currentOptionFormat[] = $option['label'];
+        // Look for default marker
+        $default = null;
+        $options = array_map(function ($option) use (&$default, $currentOptions) {
+            if ($this->isDefault($option)) {
+                $default = $this->getOptionId($option, $currentOptions);
+            }
+            return $this->trimDefault($option);
+        }, $options);
+
+        // Ordered by position in YAML
+        $optionsPosition = array_flip($options);
+
+        $toCreate = array_values(array_diff($options, array_keys($currentOptions)));
+        $toDelete = array_values(array_diff(array_keys($currentOptions), $options));
+
+        // Placeholders
+        $value  = [];
+        $order  = [];
+        $delete = [];
+
+        // All properties (value, order, delete) are set no matter the operation
+        $allOptions = array_unique(array_merge($options, array_keys($currentOptions)));
+        foreach ($allOptions as $option) {
+            $option_id = null;
+            if (in_array($option, $toCreate)) {
+                $option_id = is_numeric($option) ? self::NUMBER_MARKER . $option : $option;
+            } else {
+                $option_id = $currentOptions[$option];
+            }
+
+            $value[$option_id]  = [ 0 => $option ];
+            $order[$option_id]  = "" . isset($optionsPosition[$option]) ? $optionsPosition[$option] : "0";
+            $delete[$option_id] = "";
+
+            if (in_array($option, $toDelete, true)) {
+                $delete[$option_id] = "1"; // value of "1" means delete
             }
         }
 
-        $attributeId = $attribute->getId();
-        $optionsToAdd = array_diff($options,$currentOptionFormat);
-        $optionsToRemove = array_diff($currentOptionFormat,$options);
-        $eav_entity_setup = new Mage_Eav_Model_Entity_Setup('core_setup');
+        // Data-structure derrived from saveAction in Mage_Adminhtml_Catalog_Product_AttributeController
+        $data = [
+            "option" => [
+                "value"  => $value,
+                "order"  => $order,
+                "delete" => $delete
+            ],
+            "default" => [ (in_array($default, $toCreate) && is_numeric($default) ? self::NUMBER_MARKER . $default : $default) ]
+        ];
 
-        // Create new attributes
-        foreach ($optionsToAdd as $option) {
-
-            unset($new_option);
-
-            // Check if the option already exists
-            if ($attribute->getSource()->getOptionId($option)) {
-                $this->log($this->__("Exsting attribute option %s for %s",$option,$attribute->getAttributeCode()));
-            }
-            $new_option['attribute_id'] = $attributeId;
-            $new_option['value']['_custom_'.$option][0] = $option;
-            $eav_entity_setup->addAttributeOption($new_option);
-
-            /*
-            $attribute->setData(
-                'option',
-                array(
-                    'value'=>array(
-                        'option'=>array(
-                            $option
-                        )
-                    )
-                )
-            );
-            $attribute->save();
-            */
-
-            $this->log($this->__("Created attribute option %s for %s",$option,$attribute->getAttributeCode()));
-        }
-
-        // Remove old attributes
-        foreach ($optionsToRemove as $option) {
-            $optionId = $attribute->getSource()->getOptionId($option);
-            $toDelete['delete'][$optionId] = true;
-            $toDelete['value'][$optionId] = true;
-            $setup = new Mage_Eav_Model_Entity_Setup('core_setup');
-            $setup->addAttributeOption($toDelete);
-            $this->log($this->__("Deleted attribute option %s for %s",$option,$attribute->getAttributeCode()));
-        }
+        $attribute->addData($data);
+        $attribute->save();
     }
-
 
     /**
      * @return array
@@ -215,5 +224,19 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
             'backend_type'              => 'static',
             'search_weight'             => 1 // EE only
         );
+    }
+
+    private function isDefault($option)
+    {
+        return strpos($option, "|" . self::DEFAULT_MARKER) !== false;
+    }
+    private function trimDefault($option)
+    {
+        return $this->isDefault($option) ? substr($option, 0, strpos($option, "|" . self::DEFAULT_MARKER)) : $option;
+    }
+    private function getOptionId($option, $currentOptions = [])
+    {
+        $option = $this->trimDefault($option);
+        return isset($currentOptions[$option]) ? $currentOptions[$option] : $option;
     }
 }
