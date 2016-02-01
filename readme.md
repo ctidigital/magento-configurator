@@ -1,5 +1,7 @@
 # Magento Configurator
 
+[![Build Status](https://travis-ci.org/ctidigital/magento-configurator.svg?branch=master)](https://travis-ci.org/ctidigital/magento-configurator)
+
 A Magento module initially created by [CTI Digital] to create and maintain database variables using files. This module aims to bring the following benefits to a Magento developer's work flow:
 
   - Install Magento from scratch with important database based configuration ready.
