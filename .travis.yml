@@ -13,9 +13,8 @@ env:
 #  global:
 #    - MAGENTO_DB_ALLOWSAME=1
 #    - SKIP_CLEANUP=1
+  - MAGENTO_VERSION=magento-ce-1.9.1.0
   - MAGENTO_VERSION=magento-ce-1.9.0.1
   - MAGENTO_VERSION=magento-ce-1.8.1.0
-  - MAGENTO_VERSION=magento-ce-1.8.0.0
-  - MAGENTO_VERSION=magento-ce-1.7.0.2
 script:
-  - curl -sSL https://raw.githubusercontent.com/AOEpeople/MageTestStand/master/setup.sh | bash
+  - curl -sSL https://raw.githubusercontent.com/ffuenf/MageTestStand/master/setup.sh | bash
