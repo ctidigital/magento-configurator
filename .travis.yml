@@ -12,7 +12,7 @@ matrix:
   - php: 5.6
 env:
   global:
-  - APPNAME=NAMESPACE_EXTENSIONNAME
+  - APPNAME=Cti_Configurator
   matrix:
   - MAGENTO_VERSION=magento-ce-1.9.2.2
   - MAGENTO_VERSION=magento-ce-1.9.1.1
