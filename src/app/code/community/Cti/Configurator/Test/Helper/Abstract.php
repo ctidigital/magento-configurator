@@ -9,7 +9,7 @@ abstract class Cti_Configurator_Test_Helper_Abstract extends EcomDev_PHPUnit_Tes
      *
      * @test
      */
-    public function hasClass() {
+    public function extendsAbstractClass() {
 
         $helper = Mage::helper($this->_moduleAlias.'/'.$this->_classAlias);
 
