@@ -50,7 +50,7 @@ abstract class Cti_Configurator_Test_Helper_Abstract extends EcomDev_PHPUnit_Tes
 
         $this->assertTrue(
             $exists,
-            $this->_moduleAlias.'/'.$this->_classAlias.' does not have a sample file. Tried looking here: '.$path
+            get_class($helper).' does not have a sample file. Tried looking here: '.$helper->getFilePath1()
         );
 
     }
