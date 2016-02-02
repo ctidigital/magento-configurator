@@ -1,12 +1,4 @@
 <?php
-class Cti_Configurator_Test_Helper_Website extends EcomDev_PHPUnit_Test_Case {
+class Cti_Configurator_Test_Helper_Website extends Cti_Configurator_Test_Helper_Abstract {
 
-    /**
-     * Example test
-     *
-     * @test
-     */
-    public function test() {
-        return true;
-    }
 }
