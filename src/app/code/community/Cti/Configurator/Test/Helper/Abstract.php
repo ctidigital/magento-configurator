@@ -12,10 +12,15 @@ abstract class Cti_Configurator_Test_Helper_Abstract extends EcomDev_PHPUnit_Tes
     public function extendsAbstractClass() {
 
         $helper = Mage::helper($this->_moduleAlias.'/'.$this->_classAlias);
+        $isInstance = false;
 
         if ($helper instanceof Cti_Configurator_Helper_Components_Abstract) {
-            return true;
+            $isInstance = true;
         }
-        return false;
+
+        $this->assertTrue(
+            $isInstance,
+            $this->_moduleAlias.'/'.$this->_classAlias.' is not an instance of Cti_Configurator_Test_Helper_Abstract'
+        );
     }
 }
