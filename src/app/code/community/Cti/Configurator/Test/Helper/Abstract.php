@@ -35,12 +35,13 @@ abstract class Cti_Configurator_Test_Helper_Abstract extends EcomDev_PHPUnit_Tes
     public function hasASampleFile() {
 
         $exists = false;
+        $path = Mage::getBaseDir('var') . DS . 'samples' . DS . $this->_file1;
 
         /* @var $helper Cti_Configurator_Helper_Components_Abstract */
         $helper = Mage::helper($this->_moduleAlias.'/'.$this->_classAlias);
 
         if ($this->_file1 !== null) {
-            $helper->setFilePath1(Mage::getBaseDir('var') . DS . 'samples' . $this->_file1);
+            $helper->setFilePath1($path);
         }
 
         if(file_exists($helper->getFilePath1())) {
@@ -49,7 +50,7 @@ abstract class Cti_Configurator_Test_Helper_Abstract extends EcomDev_PHPUnit_Tes
 
         $this->assertTrue(
             $exists,
-            $this->_moduleAlias.'/'.$this->_classAlias.' does not have a sample file'
+            $this->_moduleAlias.'/'.$this->_classAlias.' does not have a sample file. Tried looking here: '.$path
         );
 
     }
@@ -63,10 +64,10 @@ abstract class Cti_Configurator_Test_Helper_Abstract extends EcomDev_PHPUnit_Tes
         /* @var $helper Cti_Configurator_Helper_Components_Abstract */
         $helper = Mage::helper($this->_moduleAlias.'/'.$this->_classAlias);
         if ($this->_file1 !== null) {
-            $helper->setFilePath1(Mage::getBaseDir('var') . DS . 'samples' . $this->_file1);
+            $helper->setFilePath1(Mage::getBaseDir('var') . DS . 'samples' . DS . $this->_file1);
         }
         if ($this->_file2 !== null) {
-            $helper->setFilePath2(Mage::getBaseDir('var') . DS . 'samples' . $this->_file2);
+            $helper->setFilePath2(Mage::getBaseDir('var') . DS . 'samples' . DS .  $this->_file2);
         }
         $helper->process();
         $this->assertEventDispatched($helper->getComponentName().'_configurator_process_after');
