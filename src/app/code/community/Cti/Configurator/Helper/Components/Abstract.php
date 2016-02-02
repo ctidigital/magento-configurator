@@ -13,10 +13,24 @@ abstract class Cti_Configurator_Helper_Components_Abstract extends Mage_Core_Hel
 
     public function setFilePath1($filePath) {
         $this->_filePath1 = $filePath;
+        return $this;
     }
 
     public function setFilePath2($filePath) {
         $this->_filePath2 = $filePath;
+        return $this;
+    }
+
+    public function getFilePath1() {
+        return $this->_filePath1;
+    }
+
+    public function getFilePath2() {
+        return $this->_filePath2;
+    }
+
+    public function getComponentName() {
+        return $this->_componentName;
     }
 
     public function process() {

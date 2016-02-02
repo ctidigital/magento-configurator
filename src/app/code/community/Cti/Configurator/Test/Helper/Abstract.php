@@ -7,12 +7,13 @@ abstract class Cti_Configurator_Test_Helper_Abstract extends EcomDev_PHPUnit_Tes
     protected $_file2 = null;
 
     /**
-     * Test to see if class is the correct instance
+     * Class is of the correct instance
      *
      * @test
      */
     public function extendsAbstractClass() {
 
+        /* @var $helper Cti_Configurator_Helper_Components_Abstract */
         $helper = Mage::helper($this->_moduleAlias.'/'.$this->_classAlias);
         $isInstance = false;
 
@@ -26,7 +27,35 @@ abstract class Cti_Configurator_Test_Helper_Abstract extends EcomDev_PHPUnit_Tes
         );
     }
 
+    /**
+     * Does the component have a sample file
+     *
+     * @test
+     */
+    public function hasASampleFile() {
+
+        $exists = false;
+
+        /* @var $helper Cti_Configurator_Helper_Components_Abstract */
+        $helper = Mage::helper($this->_moduleAlias.'/'.$this->_classAlias);
+        if(file_exists($helper->getFilePath1())) {
+            $exists = true;
+        }
+
+        $this->assertTrue(
+            $exists,
+            $this->_moduleAlias.'/'.$this->_classAlias.' does not have a sample file'
+        );
+
+    }
+
+    /**
+     * Does component successfully process
+     *
+     * @test
+     */
     public function testProcessing() {
+        /* @var $helper Cti_Configurator_Helper_Components_Abstract */
         $helper = Mage::helper($this->_moduleAlias.'/'.$this->_classAlias);
         if ($this->_file1 !== null) {
             $helper->setFilePath1(Mage::getBaseDir() . 'var' . DS . 'samples' . $this->_file1);
@@ -35,5 +64,6 @@ abstract class Cti_Configurator_Test_Helper_Abstract extends EcomDev_PHPUnit_Tes
             $helper->setFilePath2(Mage::getBaseDir() . 'var' . DS . 'samples' . $this->_file2);
         }
         $helper->process();
+        $this->assertEventDispatched($helper->getComponentName().'_configurator_process_after');
     }
 }
