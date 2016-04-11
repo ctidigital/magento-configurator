@@ -218,6 +218,17 @@ We can also specify product options for select type attributes as so:
         - Orange
 ```
 
+We can also specify store labels for attributes as so:
+```
+- attributes:
+  - attribute_code:
+      frontend_label: Attribute Code
+      frontend_input: select
+      - store_labels:
+        default: Default Store Label
+        en: Label for store code en
+```
+
 Please note, certain attribute configurations follow certain rules so do ensure you're familiar with how Magento product attributes work in order to make best use of this component. An attribute's configuration elements are simply fields in the `catalog_eav_attribute` table with a few exceptions.
 
 ### Attribute Sets

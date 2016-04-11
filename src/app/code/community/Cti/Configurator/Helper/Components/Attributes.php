@@ -46,6 +46,10 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
         }
 
         foreach ($data as $key=>$value) {
+            // Skip store labels to be processed after
+            if ($key == 'store_labels') {
+                continue;
+            }
 
             // YAML will pass product types as an array which needs to be imploded
             if ($key == "product_types") {
@@ -84,6 +88,9 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
             }
             if ($data['options']) {
                 $this->_maintainAttributeOptions($attribute,$data['options']);
+            }
+            if ($data['store_labels']) {
+                $this->_maintainAttributeStoreLabels($attribute, $data['store_labels']);
             }
         } catch (Exception $e) {
             throw $e;
@@ -182,6 +189,34 @@ class Cti_Configurator_Helper_Components_Attributes extends Cti_Configurator_Hel
         }
     }
 
+
+    /**
+     * Assign store labels to an attribute
+     *
+     * @param $attribute
+     * @param $labels
+     */
+    private function _maintainAttributeStoreLabels($attribute, $labels)
+    {
+        //get existing labels
+        $storeLabels = Mage::getModel('eav/entity_attribute')->getResource()
+            ->getStoreLabelsByAttributeId($attribute->getId());
+
+        //build up array of storeId - Label
+        foreach ($labels as $storeCode => $label) {
+            try{
+                $store = Mage::app()->getStore($storeCode);
+                $storeId = $store->getId();
+                $storeLabels[$storeId] = $label;
+            } catch (Exception $e){
+                $this->log($this->__('Skipping label for store "' . $storeCode . '" - Check the store is setup '));
+            }
+        }
+
+        //save the new store labels
+        $attribute->setStoreLabels($storeLabels)->save();
+
+    }
 
     /**
      * @return array
